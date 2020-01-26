@@ -14,7 +14,7 @@ public class AOPZAfterReturningDemoApp {
 		
 		AccountDAO theDao=context.getBean("accountDAO",AccountDAO.class);
 		
-		List<Account> theAccounts=theDao.listAccounts();
+		List<Account> theAccounts=theDao.listAccounts(false);
 		
 		System.out.println("\n\nMain demo app account list: "+theAccounts);
 		context.close();
