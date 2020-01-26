@@ -14,7 +14,12 @@ public class AccountDAO {
 		System.out.println("\nHello! Spring AOP");
 	}
 
-	public List<Account> listAccounts(){
+	public List<Account> listAccounts(boolean triggerException){
+		
+		if(triggerException) {
+			throw new RuntimeException("Simulating an exception for after Throwning advise");
+			
+		}
 
 	List<Account> myAccounts=new ArrayList<>();
 	Account temp1=new Account("Beginner", "Anant");
