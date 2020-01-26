@@ -3,13 +3,12 @@ package com.anant.spring.aop.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.aspectj.lang.reflect.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +18,16 @@ import com.anant.spring.aop.Account;
 @Component
 @Order(2)
 public class MyBeforeAspect {
+	
+	
+	@After("execution(* com.anant.spring.aop.dao.AccountDAO.listAccounts(..))")
+	public void afterFinallyAdviseExecution(JoinPoint theJoinPoint) {
+		 
+		String methodSig=theJoinPoint.getSignature().toShortString();
+		
+		System.out.println("~~~~~~~~executing after (finally) advise regardless of the outcome of targetObject method");
+		
+	}
 	
 	
 	@AfterThrowing(pointcut="execution(* com.anant.spring.aop.dao.AccountDAO.listAccounts(..))",
