@@ -5,9 +5,11 @@ import java.util.List;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.reflect.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,24 @@ import com.anant.spring.aop.Account;
 @Component
 @Order(2)
 public class MyBeforeAspect {
+	
+	
+	@AfterThrowing(pointcut="execution(* com.anant.spring.aop.dao.AccountDAO.listAccounts(..))",
+			throwing = "theExc")
+	public void afterThrowingListAccountAdvise(JoinPoint theJoinPoint,Throwable theExc) {
+		
+		//print out whic method we are advising on
+		
+		String theMethod=theJoinPoint.getSignature().toShortString();
+		System.out.println("~~~~~~~~@AfterThrowing method signature : "+theMethod);
+				
+		
+		//log the exception before returning to main application
+		
+		System.out.println("~~~~~~~~Exception coming from AccountDAO's listAccount()"+theExc);
+		
+	}
+	
 	
 	@AfterReturning(
 			pointcut = "execution(* com.anant.spring.aop.dao.AccountDAO.listAccounts())",
