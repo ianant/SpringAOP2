@@ -3,9 +3,11 @@ package com.anant.spring.aop.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -18,6 +20,39 @@ import com.anant.spring.aop.Account;
 @Component
 @Order(2)
 public class MyBeforeAspect {
+	
+	@Around("execution(* com.anant.spring.aop.service.*.getFortune(..))")
+	public Object aroundAdviseExecution(ProceedingJoinPoint thePJoinPoint)throws Throwable{
+		
+		//print out method we are advising on
+		String methodSig=thePJoinPoint.getSignature().toShortString();
+		System.out.println("~~~~~~~~ Method on which @Around is applied: "+methodSig);
+		
+		//get begin time stamp
+		
+		long start=System.currentTimeMillis();
+		
+		//execute the method
+		
+		Object result=thePJoinPoint.proceed();//this will call the method on which @Advice should be applied
+		
+		//get the ending time stamp
+		
+		long end=System.currentTimeMillis();
+		
+		//compute and display the duration
+		
+		long delay=end-start;
+		
+		System.out.println("~~~~~~~~~ delay in the method due to traffic: "+delay/1000 +" sec");
+		
+		
+		return result;
+		
+		
+	}
+
+	
 	
 	
 	@After("execution(* com.anant.spring.aop.dao.AccountDAO.listAccounts(..))")
