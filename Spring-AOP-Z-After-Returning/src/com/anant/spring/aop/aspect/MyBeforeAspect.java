@@ -43,11 +43,12 @@ public class MyBeforeAspect {
 		} catch (Exception e) {
 			
 			//log the exception
-			System.out.println("~~~~~~~~~~~Exception occured in good fortune");
+			System.out.println("~~~~~~~~~~~Exception occured in good fortune"+e);
 			
 			//give user a custom message
-			result="~~~~~~~~~dont't worry Bholenath is there for you";
+			//result="~~~~~~~~~dont't worry Bholenath is there for you:::";
 			
+			throw e;
 		}
 		
 		//get the ending time stamp
