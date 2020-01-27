@@ -32,9 +32,23 @@ public class MyBeforeAspect {
 		
 		long start=System.currentTimeMillis();
 		
-		//execute the method
+		//execute the method		
 		
-		Object result=thePJoinPoint.proceed();//this will call the method on which @Advice should be applied
+		Object result=null;
+		
+		
+		try {
+			//this will call the method on which @Advice should be applied
+			thePJoinPoint.proceed();
+		} catch (Exception e) {
+			
+			//log the exception
+			System.out.println("~~~~~~~~~~~Exception occured in good fortune");
+			
+			//give user a custom message
+			result="~~~~~~~~~dont't worry Bholenath is there for you";
+			
+		}
 		
 		//get the ending time stamp
 		
