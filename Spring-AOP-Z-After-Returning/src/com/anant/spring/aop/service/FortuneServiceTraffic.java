@@ -24,6 +24,14 @@
 			return "facing heavy traffic in your good fortune";
 			
 		}
+
+		public String getFortune(boolean triggerExecption) {
+			// TODO Auto-generated method stub
+			if(triggerExecption) {
+				throw new RuntimeException("Issue in getFortuneService : don't take it");
+			}
+			return getFortune();
+		}
 		
 		
 	}
